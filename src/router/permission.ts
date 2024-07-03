@@ -15,6 +15,7 @@ export function setupPageGuard(router: Router) {
           next()
       }
       catch (error) {
+        console.error('Error fetching session:', error)
         if (to.path !== '/500')
           next({ name: '500' })
         else
@@ -22,7 +23,6 @@ export function setupPageGuard(router: Router) {
       }
     }
     else {
-      // 添加登录检查逻辑
       if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!authStore.token) {
           next({
