@@ -22,7 +22,19 @@ export function setupPageGuard(router: Router) {
       }
     }
     else {
-      next()
+      // 添加登录检查逻辑
+      if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!authStore.token) {
+          next({
+            path: '/login',
+            query: { redirect: to.fullPath }
+          })
+        } else {
+          next()
+        }
+      } else {
+        next()
+      }
     }
   })
 }
