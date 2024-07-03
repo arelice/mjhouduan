@@ -6,6 +6,7 @@ import { ChatLayout } from '@/views/chat/layout'
 import mjlayout from '@/views/mj/layout.vue'
 import sunoLayout from '@/views/suno/layout.vue'
 import lumaLayout from '@/views/luma/layout.vue'
+import Login from '@/components/Login.vue' // 导入登录组件
 
 const routes: RouteRecordRaw[] = [
   {
@@ -21,7 +22,7 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-   {
+  {
     path: '/g',
     name: 'g',
     component: ChatLayout,
@@ -34,7 +35,7 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-   {
+  {
     path: '/m',
     name: 'm',
     component: ChatLayout,
@@ -60,8 +61,6 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-
-
   {
     path: '/draw',
     name: 'Rootdraw',
@@ -75,8 +74,7 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-
-    {
+  {
     path: '/music',
     name: 'music',
     component: sunoLayout,
@@ -88,11 +86,8 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/suno/music.vue'),
       },
     ],
-
-    
-
   },
-   {
+  {
     path: '/video',
     name: 'video',
     component: lumaLayout,
@@ -105,26 +100,21 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-
-  //调试
-  // {
-  //   path: '/mytest',
-  //   name: 'mytest',
-  //   component: () => import('@/views/mj/myTest.vue'),
-  // },
-
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login, // 添加登录路由
+  },
   {
     path: '/404',
     name: '404',
     component: () => import('@/views/exception/404/index.vue'),
   },
-
   {
     path: '/500',
     name: '500',
     component: () => import('@/views/exception/500/index.vue'),
   },
-
   {
     path: '/:pathMatch(.*)*',
     name: 'notFound',
