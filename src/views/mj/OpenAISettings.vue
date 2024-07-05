@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { openaiSetting } from './path/to/your/openaiSetting';
+import { openaiSetting } from '../../api/openapi';
 
 export default {
   data() {
@@ -41,3 +41,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+/* 你可以在这里添加组件特定的样式 */
+</style>
