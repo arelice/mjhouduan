@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, nextTick } from 'vue'
 import { NLayout, NLayoutContent, useMessage } from 'naive-ui'
 import { useRouter, useRoute } from 'vue-router'
 import Sider from './sider/index.vue'
@@ -20,23 +20,25 @@ const rt = useRoute();
 const ms = useMessage();
 
 onMounted(() => {
-  openaiSetting(rt.query, ms);
-
-  if (rt.name == 'GPTs') { 
-    let model = `gpt-4-gizmo-${rt.params.gid.toString()}`;
-    gptConfigStore.setMyData({ model: model });
-    ms.success(`GPTs ${t('mj.modleSuccess')}`);
-  } else if (rt.name == 'Setting') { 
+  nextTick(() => {
     openaiSetting(rt.query, ms);
-    if (isObject(rt.query)) ms.success(t('mj.setingSuccess')); 
-  } else if (rt.name == 'Model') { 
-    let model = `${rt.params.gid.toString()}`;
-    gptConfigStore.setMyData({ model: model });
-    ms.success(t('mj.modleSuccess'));
-  }
 
-  router.replace({ name: 'Chat', params: { uuid: chatStore.active } });
-  homeStore.setMyData({ local: 'Chat' });
+    if (rt.name == 'GPTs') { 
+      let model = `gpt-4-gizmo-${rt.params.gid.toString()}`;
+      gptConfigStore.setMyData({ model: model });
+      ms.success(`GPTs ${t('mj.modleSuccess')}`);
+    } else if (rt.name == 'Setting') { 
+      openaiSetting(rt.query, ms);
+      if (isObject(rt.query)) ms.success(t('mj.setingSuccess')); 
+    } else if (rt.name == 'Model') { 
+      let model = `${rt.params.gid.toString()}`;
+      gptConfigStore.setMyData({ model: model });
+      ms.success(t('mj.modleSuccess'));
+    }
+
+    router.replace({ name: 'Chat', params: { uuid: chatStore.active } });
+    homeStore.setMyData({ local: 'Chat' });
+  });
 });
 
 const { isMobile } = useBasicLayout()
