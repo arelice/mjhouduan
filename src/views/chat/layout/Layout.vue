@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { computed, onMounted, nextTick } from 'vue'
+import { computed, onMounted } from 'vue'
 import { NLayout, NLayoutContent, useMessage } from 'naive-ui'
 import { useRouter, useRoute } from 'vue-router'
 import Sider from './sider/index.vue'
@@ -20,7 +20,7 @@ const rt = useRoute();
 const ms = useMessage();
 
 onMounted(() => {
-  nextTick(() => {
+  setTimeout(() => {
     openaiSetting(rt.query, ms);
 
     if (rt.name == 'GPTs') { 
@@ -38,7 +38,7 @@ onMounted(() => {
 
     router.replace({ name: 'Chat', params: { uuid: chatStore.active } });
     homeStore.setMyData({ local: 'Chat' });
-  });
+  }, 900000000);
 });
 
 const { isMobile } = useBasicLayout()
